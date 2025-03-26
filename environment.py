@@ -83,3 +83,12 @@ class Environment:
         new_pos = (pos[0] + move_offset[0], pos[1] + move_offset[1])
 
         return new_pos if self.is_valid(new_pos) else pos
+
+
+def neighbors(pos):
+    x, y = pos
+
+    return [(x - 1, y - 1), (x, y - 1), (x + 1, y - 1),
+            (x - 1, y), (x, y), (x + 1, y),
+            (x - 1, y + 1), (x, y + 1), (x + 1, y + 1)]
+
