@@ -32,10 +32,8 @@ for e in range(num_episodes):
     trajectory[e] = {}
 
     for t in range(T):
-        # Current State
+        # Observe current state
         st = history['s'][-1]
-        if st == 'sink':
-            break
 
         p1t = st[0]
         p2t = st[1]
@@ -48,16 +46,16 @@ for e in range(num_episodes):
 
         r1, r2 = 0, 0
 
-        if a1t == 'Z' and p2t in neighbors(p1t):
+        p1_new = env.move(pos=p1t, action=a1t)
+        p2_new = env.move(pos=p2t, action=a2t)
+
+        if a1t == 'Z' and p2_new in neighbors(p1_new):
             s_new = 'sink'
 
             if player2.type == 0:
                 r1, r2 = -C, -C
 
         else:
-            p1_new = env.move(p1t, a1t)
-            p2_new = env.move(p2t, a2t)
-
             s_new = (p1_new, p2_new)
 
             if player2.type == 0 and p2_new in env.green_cells:
@@ -82,6 +80,9 @@ for e in range(num_episodes):
             "p1Q": player1.Q[st][a1t],
             "p2Q": player2.Q[st][a2t]
         }
+
+        if s_new == 'sink':
+            break
 
     if e % 100 == 0:
         print(f"Simulation done for Episode {e}.")

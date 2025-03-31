@@ -2,7 +2,7 @@ from environment import neighbors
 import pygame
 import json
 
-episode_number = 4901
+episode_number = 4930
 
 WINDOW_SIZE = 600
 GRID_SIZE = 6
